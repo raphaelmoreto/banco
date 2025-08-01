@@ -1,0 +1,53 @@
+CREATE DATABASE banco
+GO
+
+USE banco
+GO
+
+CREATE TABLE cliente (
+	id INT PRIMARY KEY IDENTITY(1,1),
+	nome VARCHAR(100) NOT NULL,
+	cpf CHAR(11) UNIQUE NOT NULL
+)
+GO
+
+CREATE TABLE endereco (
+	id INT PRIMARY KEY IDENTITY(1,1),
+	rua VARCHAR(100) NOT NULL,
+	numero VARCHAR(10) NOT NULL,
+	bairro VARCHAR(100) NOT NULL,
+	cidade VARCHAR(100) NOT NULL,
+	estado VARCHAR(50) NOT NULL,
+	cep CHAR(8) NOT NULL,
+	fk_cliente INT NOT NULL
+)
+GO
+	
+ALTER TABLE endereco
+ADD CONSTRAINT fk_endereco_cliente
+FOREIGN KEY (fk_cliente) REFERENCES cliente (id)
+GO
+
+CREATE TABLE tipo_conta (
+	id INT PRIMARY KEY IDENTITY(1,1),
+	descricao VARCHAR(100) NOT NULL
+)
+GO
+
+CREATE TABLE conta (
+	id INT PRIMARY KEY IDENTITY(1,1),
+	fk_cliente INT NOT NULL,
+	fk_tipoConta INT NOT NULL,
+	saldo DECIMAL(18,2) NOT NULL
+)
+GO
+
+ALTER TABLE conta
+ADD CONSTRAINT fk_conta_cliente
+FOREIGN KEY (fk_cliente) REFERENCES cliente (id)
+GO
+
+ALTER TABLE conta
+ADD CONSTRAINT fk_conta_tipoConta
+FOREIGN KEY (fk_tipoConta) REFERENCES tipo_conta (id)
+GO
