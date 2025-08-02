@@ -1,18 +1,18 @@
 ﻿using banco.ModelsConta;
-using banco.ModelsCliente;
-using banco.ModelsTipoConta;
+using banco.ModelsEnumsConta;
 
 namespace banco.ModelsContaCorrente
 {
     public class ContaCorrente : Conta
     {
-        public ContaCorrente(Cliente cliente, TipoConta tipoConta, int? id, decimal? saldo) : base(cliente, tipoConta, id, saldo)
+        public ContaCorrente(int idCliente, TipoConta tipoConta, decimal? saldo, int? id = null) : base(idCliente, tipoConta, saldo, id)
         {
         }
 
         public override void Saque(decimal valor)
         {
-            Saldo -= valor;
+            if (valor >= _valorMinimoSaque && valor <= Saldo)
+                Saldo -= valor;
         }
     }
 }

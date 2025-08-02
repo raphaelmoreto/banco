@@ -1,5 +1,6 @@
 ﻿using banco.Database;
 using banco.ModelsCliente;
+using banco.ModelsConta;
 using banco.RepositorysCliente;
 using banco.ServicesLayoutCliente;
 using banco.InterfaceRepository;
@@ -7,6 +8,9 @@ using banco.InterfacesDatabase;
 using banco.InterfaceClienteRepository;
 using banco.InterfaceLayoutService;
 using banco.ServicesCliente;
+using banco.ServicesLayoutConta;
+using banco.ServicesConta;
+using banco.RepositorysConta;
 
 namespace banco
 {
@@ -18,11 +22,14 @@ namespace banco
             IDatabaseConnection dbConnection = new DatabaseConnection(connectionString);
 
             ILayoutService<Cliente> layoutService = new LayoutCliente();
-            IRepository<Cliente> repositoryCliente = new ClienteRepository(dbConnection);
+            IRepository<Cliente> repository = new ClienteRepository(dbConnection);
             IClienteRepository clienteRepository = new ClienteRepository(dbConnection);
-            ClienteService clienteService = new ClienteService(layoutService, repositoryCliente, clienteRepository);
+            ClienteService clienteService = new ClienteService(layoutService, repository, clienteRepository);
 
-            await clienteService.Importar("C:\\Users\\Raphael\\Documents\\PROJETOS\\C#\\banco\\Arquivos\\clientes.xlsx");
+            IRepository<Conta> repositoryConta = new ContaRepository(dbConnection);
+            ILayoutService<Conta> layoutServiceConta = new LayoutConta(clienteRepository);
+            ContaService contaService = new ContaService(layoutServiceConta, repositoryConta);
+            await contaService.Importar("C:\\Users\\Raphael\\Documents\\PROJETOS\\C#\\banco\\banco\\Arquivos\\contas.csv");
         }
     }
 }

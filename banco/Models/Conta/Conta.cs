@@ -1,5 +1,4 @@
-﻿using banco.ModelsCliente;
-using banco.ModelsTipoConta;
+﻿using banco.ModelsEnumsConta;
 
 namespace banco.ModelsConta
 {
@@ -7,13 +6,15 @@ namespace banco.ModelsConta
     {
         public int Id { get; protected set; }
 
-        public required Cliente Cliente { get; set; }
+        public int IdCliente { get; set; }
 
-        public required TipoConta TipoConta { get; set; }
+        public TipoConta TipoConta { get; set; }
 
         public decimal Saldo { get; protected set; }
 
-        public Conta(Cliente cliente, TipoConta tipoConta, int? id, decimal? saldo)
+        protected readonly decimal _valorMinimoSaque = 5.0m;
+
+        public Conta(int idCliente, TipoConta tipoConta, decimal? saldo, int? id = null)
         {
             if (id.HasValue)
                 Id = id.Value;
@@ -21,7 +22,7 @@ namespace banco.ModelsConta
             if (saldo.HasValue)
                 Saldo = saldo.Value;
 
-            Cliente = cliente;
+            IdCliente = idCliente;
             TipoConta = tipoConta;
         }
 

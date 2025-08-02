@@ -9,8 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Database\SqlScript\" />
-    <Folder Include="Repositorys\Conta\" />
-    <Folder Include="Services\Conta\" />
   </ItemGroup>
 
   <ItemGroup>

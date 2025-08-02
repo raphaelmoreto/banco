@@ -1,6 +1,5 @@
 ﻿using banco.ModelsConta;
-using banco.ModelsCliente;
-using banco.ModelsTipoConta;
+using banco.ModelsEnumsConta;
 
 namespace banco.ModelsContaPoupanca
 {
@@ -8,14 +7,15 @@ namespace banco.ModelsContaPoupanca
     {
         private readonly decimal _taxaSaque = 3.50m; //O 'm' INFORMA QUE O VALOR E DO TIPO DECIMAL
 
-        public ContaPoupanca(Cliente cliente, TipoConta tipoConta, int? id, decimal? saldo) : base(cliente, tipoConta, id, saldo)
+        public ContaPoupanca(int idCliente, TipoConta tipoConta, decimal? saldo, int? id = null) : base(idCliente, tipoConta, saldo, id)
         {
 
         }
 
         public override void Saque(decimal valor)
         {
-            Saldo -= (valor + _taxaSaque);
+            if (valor >= _valorMinimoSaque && valor <= Saldo)
+                Saldo -= (valor + _taxaSaque);
         }
     }
 }

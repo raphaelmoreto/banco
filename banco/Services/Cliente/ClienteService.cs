@@ -9,13 +9,13 @@ namespace banco.ServicesCliente
     public class ClienteService : IImportarArquivo
     {
         private readonly ILayoutService<Cliente> _layoutService;
-        private readonly IRepository<Cliente> _repositoryCliente;
+        private readonly IRepository<Cliente> _repository;
         private readonly IClienteRepository _clienteRepository;
 
         public ClienteService(ILayoutService<Cliente> layoutService, IRepository<Cliente> repositoryCliente, IClienteRepository clienteRepository)
         {
             _layoutService = layoutService;
-            _repositoryCliente = repositoryCliente;
+            _repository = repositoryCliente;
             _clienteRepository = clienteRepository;
         }
 
@@ -40,7 +40,7 @@ namespace banco.ServicesCliente
 
                 foreach (Cliente cliente in clientes)
                 {
-                    var cadastroCliente = await _repositoryCliente.Inserir(cliente);
+                    var cadastroCliente = await _repository.Inserir(cliente);
                     if (!cadastroCliente)
                         continue;
 
