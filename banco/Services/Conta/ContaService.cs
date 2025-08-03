@@ -27,7 +27,7 @@ namespace banco.ServicesConta
             try
             {
                 string extensao = Path.GetExtension(caminhoArquivo).ToLower();
-                var conta = extensao switch
+                var contas = extensao switch
                 {
                     ".csv" => await _layoutServiceConta.LerCsv(caminhoArquivo),
                     ".txt" => await _layoutServiceConta.LerTxt(caminhoArquivo),

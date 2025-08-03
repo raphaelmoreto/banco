@@ -26,10 +26,10 @@ namespace banco
             IClienteRepository clienteRepository = new ClienteRepository(dbConnection);
             ClienteService clienteService = new ClienteService(layoutService, repository, clienteRepository);
 
-            IRepository<Conta> repositoryConta = new ContaRepository(dbConnection);
             ILayoutService<Conta> layoutServiceConta = new LayoutConta(clienteRepository);
+            IRepository<Conta> repositoryConta = new ContaRepository(dbConnection);
             ContaService contaService = new ContaService(layoutServiceConta, repositoryConta);
-            await contaService.Importar("C:\\Users\\Raphael\\Documents\\PROJETOS\\C#\\banco\\banco\\Arquivos\\contas.csv");
+            await contaService.Importar("C:\\Users\\Raphael\\Documents\\PROJETOS\\C#\\banco\\banco\\Arquivos\\contas.xlsx");
         }
     }
 }
