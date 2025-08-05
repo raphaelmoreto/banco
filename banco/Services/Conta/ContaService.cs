@@ -34,6 +34,14 @@ namespace banco.ServicesConta
                     ".xlsx" => await _layoutServiceConta.LerXlsx(caminhoArquivo),
                     _ => throw new NotSupportedException("A EXTENÇÃO DO ARQUIVO NÃO É SUPORTADA!")
                 };
+
+                if (contas.Count >= 1)
+                {
+                    foreach (var conta in contas)
+                    {
+                        await _repository.Inserir(conta);
+                    }
+                }
             }
             catch (Exception ex)
             {

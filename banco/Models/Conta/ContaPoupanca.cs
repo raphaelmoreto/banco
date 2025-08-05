@@ -14,7 +14,7 @@ namespace banco.ModelsContaPoupanca
 
         public override void Saque(decimal valor)
         {
-            if (valor >= _valorMinimoSaque && valor <= Saldo)
+            if (valor >= _valorMinimoSaque && (valor + _taxaSaque) <= Saldo)
                 Saldo -= (valor + _taxaSaque);
         }
     }
