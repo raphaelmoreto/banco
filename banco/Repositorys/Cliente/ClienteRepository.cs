@@ -5,6 +5,7 @@ using banco.InterfaceClienteRepository;
 using banco.ModelsCliente;
 using banco.ModelsClienteEndereco;
 using Dapper;
+using banco.DtosCliente;
 
 namespace banco.RepositorysCliente
 {
@@ -15,6 +16,19 @@ namespace banco.RepositorysCliente
         public ClienteRepository(IDatabaseConnection dbConnection)
         {
             _dbConnection = dbConnection;
+        }
+
+        public async Task<IEnumerable<ClienteDto>> BuscarClientes()
+        {
+            using var connection = _dbConnection.GetConnection();
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("SELECT [id],");
+            sb.AppendLine("           [nome],");
+            sb.AppendLine("           [cpf]");
+            sb.AppendLine("FROM [dbo].[cliente]");
+
+            return await connection.QueryAsync<ClienteDto>(sb.ToString());
         }
 
         public async Task<bool> Inserir(Cliente cliente)
