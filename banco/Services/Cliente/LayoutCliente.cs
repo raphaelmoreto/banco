@@ -1,4 +1,4 @@
-﻿using banco.InterfaceLayoutService;
+﻿using banco.InterfacesImportarArquivo;
 using banco.ModelsCliente;
 using banco.ModelsClienteEndereco;
 using OfficeOpenXml;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace banco.ServicesLayoutCliente
 {
-    public class LayoutCliente : ILayoutService<Cliente>
+    public class LayoutCliente : IImportarArquivo<Cliente>
     {
         public async Task<List<Cliente>> LerCsv(string caminhoArquivo)
         {
@@ -19,20 +19,20 @@ namespace banco.ServicesLayoutCliente
                 if (dados.Length != 8)
                     continue;
 
-                var cliente = new Cliente
+                Endereco endereco = new Endereco
                 {
-                    Nome = dados[0].ToUpper().Trim(),
-                    CPF = dados[1].Trim(),
-                    Endereco = new Endereco
-                    {
-                        Rua = dados[2].ToUpper().Trim(),
-                        Numero = dados[3].Trim(),
-                        Bairro = dados[4].ToUpper().Trim(),
-                        Cidade = dados[5].ToUpper().Trim(),
-                        Estado = dados[6].ToUpper().Trim(),
-                        CEP = dados[7].Trim()
-                    }
+                    Rua = dados[2].ToUpper().Trim(),
+                    Numero = dados[3].Trim(),
+                    Bairro = dados[4].ToUpper().Trim(),
+                    Cidade = dados[5].ToUpper().Trim(),
+                    Estado = dados[6].ToUpper().Trim(),
+                    CEP = dados[7].Trim()
                 };
+
+                string nome = dados[0].ToUpper().Trim();
+                string cpf = dados[1].Trim();
+                Cliente cliente = new Cliente(nome, cpf, endereco);
+
                 clientes.Add(cliente);
             }
             return clientes;
@@ -49,20 +49,20 @@ namespace banco.ServicesLayoutCliente
                 if (dados.Length != 8)
                     continue;
 
-                var cliente = new Cliente
+                Endereco endereco = new Endereco
                 {
-                    Nome = dados[0].ToUpper().Trim(),
-                    CPF = dados[1].Trim(),
-                    Endereco = new Endereco
-                    {
-                        Rua = dados[2].ToUpper().Trim(),
-                        Numero = dados[3].Trim(),
-                        Bairro = dados[4].ToUpper().Trim(),
-                        Cidade = dados[5].ToUpper().Trim(),
-                        Estado = dados[6].ToUpper().Trim(),
-                        CEP = dados[7].Trim()
-                    }
+                    Rua = dados[2].ToUpper().Trim(),
+                    Numero = dados[3].Trim(),
+                    Bairro = dados[4].ToUpper().Trim(),
+                    Cidade = dados[5].ToUpper().Trim(),
+                    Estado = dados[6].ToUpper().Trim(),
+                    CEP = dados[7].Trim()
                 };
+
+                string nome = dados[0].ToUpper().Trim();
+                string cpf = dados[1].Trim();
+                Cliente cliente = new Cliente(nome, cpf, endereco);
+
                 clientes.Add(cliente);
             }
             return clientes;
@@ -82,20 +82,20 @@ namespace banco.ServicesLayoutCliente
 
                 for (int linha = 1; linha <= linhas; linha++) //COMEÇAR A LER DA PRIMEIRA LINHA DA PLANILHA
                 {
-                    var cliente = new Cliente
+                    Endereco endereco = new Endereco
                     {
-                        Nome = planilha.Cells[linha, 1].Text.ToUpper().Trim(),
-                        CPF = planilha.Cells[linha, 2].Text.Trim(),
-                        Endereco = new Endereco
-                        {
-                            Rua = planilha.Cells[linha, 3].Text.ToUpper().Trim(),
-                            Numero = planilha.Cells[linha, 4].Text.Trim(),
-                            Bairro = planilha.Cells[linha, 5].Text.ToUpper().Trim(),
-                            Cidade = planilha.Cells[linha, 6].Text.ToUpper().Trim(),
-                            Estado = planilha.Cells[linha, 7].Text.ToUpper().Trim(),
-                            CEP = planilha.Cells[linha, 8].Text.Trim(),
-                        }
+                        Rua = planilha.Cells[linha, 3].Text.ToUpper().Trim(),
+                        Numero = planilha.Cells[linha, 4].Text.Trim(),
+                        Bairro = planilha.Cells[linha, 5].Text.ToUpper().Trim(),
+                        Cidade = planilha.Cells[linha, 6].Text.ToUpper().Trim(),
+                        Estado = planilha.Cells[linha, 7].Text.ToUpper().Trim(),
+                        CEP = planilha.Cells[linha, 8].Text.Trim(),
                     };
+
+                    string nome = planilha.Cells[linha, 1].Text.ToUpper().Trim();
+                    string cpf = planilha.Cells[linha, 2].Text.Trim();
+                    Cliente cliente = new Cliente(nome, cpf, endereco);
+
                     clientes.Add(cliente);
                 }
             }

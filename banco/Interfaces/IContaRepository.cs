@@ -1,6 +1,6 @@
 ﻿using banco.DtosConta;
 
-namespace banco.InterfaceContaRepository
+namespace banco.InterfacesContaRepository
 {
     public interface IContaRepository
     {

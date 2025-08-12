@@ -1,16 +1,16 @@
-﻿using banco.ModelsConta;
-using banco.InterfaceImportarArquivo;
-using banco.InterfaceLayoutService;
-using banco.InterfaceRepository;
+﻿using banco.InterfacesImportarArquivo;
+using banco.InterfacesImportar;
+using banco.InterfacesRepository;
+using banco.ModelsConta;
 
 namespace banco.ServicesConta
 {
-    public class ContaService : IImportarArquivo
+    public class ContaService : IImportar
     {
-        private readonly ILayoutService<Conta> _layoutServiceConta;
+        private readonly IImportarArquivo<Conta> _layoutServiceConta;
         private readonly IRepository<Conta> _repository;
 
-        public ContaService(ILayoutService<Conta> conta, IRepository<Conta> repository)
+        public ContaService(IImportarArquivo<Conta> conta, IRepository<Conta> repository)
         {
             _layoutServiceConta = conta;
             _repository = repository;

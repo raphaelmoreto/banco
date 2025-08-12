@@ -1,18 +1,18 @@
-﻿using banco.ModelsCliente;
-using banco.InterfaceImportarArquivo;
-using banco.InterfaceLayoutService;
-using banco.InterfaceRepository;
-using banco.InterfaceClienteRepository;
+﻿using banco.InterfacesClienteRepository;
+using banco.InterfacesImportar;
+using banco.InterfacesImportarArquivo;
+using banco.InterfacesRepository;
+using banco.ModelsCliente;
 
 namespace banco.ServicesCliente
 {
-    public class ClienteService : IImportarArquivo
+    public class ClienteService : IImportar
     {
-        private readonly ILayoutService<Cliente> _layoutService;
+        private readonly IImportarArquivo<Cliente> _layoutService;
         private readonly IRepository<Cliente> _repository;
         private readonly IClienteRepository _clienteRepository;
 
-        public ClienteService(ILayoutService<Cliente> layoutService, IRepository<Cliente> repositoryCliente, IClienteRepository clienteRepository)
+        public ClienteService(IImportarArquivo<Cliente> layoutService, IRepository<Cliente> repositoryCliente, IClienteRepository clienteRepository)
         {
             _layoutService = layoutService;
             _repository = repositoryCliente;
@@ -44,7 +44,8 @@ namespace banco.ServicesCliente
                     if (!cadastroCliente)
                         continue;
 
-                    await _clienteRepository.InsirirEnderecoCliente(cliente.Endereco, cliente.CPF);
+                    if (cliente.Endereco != null)
+                        await _clienteRepository.InserirEnderecoDoCliente(cliente.Endereco, cliente.CPF);
                 }
             }
             catch (Exception ex)

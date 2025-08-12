@@ -1,8 +1,12 @@
 ﻿
-namespace banco.InterfaceImportarArquivo
+namespace banco.InterfacesImportarArquivo
 {
-    public interface IImportarArquivo
+    public interface IImportarArquivo<T>
     {
-        Task Importar(string caminhoArquivo);
+        Task<List<T>> LerCsv(string caminhoArquivo);
+
+        Task<List<T>> LerTxt(string caminhoArquivo);
+
+        Task<List<T>> LerXlsx(string caminhoArquivo);
     }
 }

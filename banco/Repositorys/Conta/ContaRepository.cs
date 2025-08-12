@@ -1,10 +1,10 @@
-﻿using banco.InterfacesDatabase;
-using banco.InterfaceRepository;
+﻿using banco.InterfacesContaRepository;
+using banco.InterfacesDatabase;
+using banco.InterfacesRepository;
 using banco.DtosConta;
 using banco.ModelsConta;
-using System.Text;
 using Dapper;
-using banco.InterfaceContaRepository;
+using System.Text;
 
 namespace banco.RepositorysConta
 {

@@ -1,15 +1,15 @@
 ﻿using banco.DtosCliente;
 using banco.DtosConta;
 
-namespace banco.DtosRelatorioClienteConta
+namespace banco.DtosContasDeClientes
 {
-    public class ClienteContaDto
+    public class ContasDeClietesDto
     {
         public ClienteDto Cliente { get; set; }
 
         public ContaDto Conta { get; set; }
 
-        public ClienteContaDto(ClienteDto clienteDto, ContaDto contaDto)
+        public ContasDeClietesDto(ClienteDto clienteDto, ContaDto contaDto)
         {
             Cliente = clienteDto;
             Conta = contaDto;

@@ -1,19 +1,19 @@
-﻿using banco.InterfaceExportar;
-using banco.InterfaceClienteRepository;
-using banco.InterfaceContaRepository;
-using banco.InterfaceExportarArquivo;
-using banco.ModelsEnumsConta;
-using banco.DtosRelatorioClienteConta;
+﻿using banco.DtosContasDeClientes;
+using banco.DtosCliente;
+using banco.DtosConta;
+using banco.InterfacesClienteRepository;
+using banco.InterfacesContaRepository;
+using banco.InterfacesExportarArquivo;
 
-namespace banco.ServicesRelatorios
+namespace banco.ServicesRelatoriosContasDeClientes
 {
-    public class ClienteConta : IExportar
+    public class ContasDeClientes
     {
         private readonly IClienteRepository _clienteRepository;
         private readonly IContaRepository _contaRepository;
-        private readonly IExportarArquivo<ClienteContaDto> _exportarArquivo;
+        private readonly IExportarArquivo<ContasDeClietesDto> _exportarArquivo;
 
-        public ClienteConta(IClienteRepository clienteRepository, IContaRepository contaRepository, IExportarArquivo<ClienteContaDto> exportarArquivo)
+        public ContasDeClientes(IClienteRepository clienteRepository, IContaRepository contaRepository, IExportarArquivo<ContasDeClietesDto> exportarArquivo)
         {
             _clienteRepository = clienteRepository;
             _contaRepository = contaRepository;
@@ -36,29 +36,23 @@ namespace banco.ServicesRelatorios
             var contas = await _contaRepository.BuscarContas();
 
             //CRIANDO UM NOVO ARQUIVO MESCLANDO 'clientes' e 'contas'
-            var listaContasClientes = (
+            var listaContasDeClientes = (
                 from cl in clientes
                 join ct in contas
-                on cl.Id equals ct.IdCliente
-                select new
-                {
-                    Cliente = cl.Nome,
-                    CPF = cl.CPF,
-                    Conta = Enum.Parse<TipoConta>(ct.TipoConta.ToString()),
-                    Saldo = ct.Saldo
-                }
+                    on cl.Id equals ct.IdCliente
+                select new ContasDeClietesDto( new ClienteDto(cl.Id, cl.Nome, cl.CPF), new ContaDto(cl.Id, ct.TipoConta, ct.Saldo))
             ).ToList();
 
             switch (extensao)
             {
                 case "csv":
-                    await _exportarArquivo.ExportarArquivoEmCsv(downloadsPath);
+                    await _exportarArquivo.ExportarArquivoEmCsv(downloadsPath, listaContasDeClientes);
                     break;
                 case "txt":
-                    await _exportarArquivo.ExportarArquivoEmTxt(downloadsPath);
+                    await _exportarArquivo.ExportarArquivoEmTxt(downloadsPath, listaContasDeClientes);
                     break;
                 case "xlsx":
-                    await _exportarArquivo.ExportarArquivoEmXlsx(downloadsPath);
+                    await _exportarArquivo.ExportarArquivoEmXlsx(downloadsPath, listaContasDeClientes);
                     break;
                 default:
                     throw new NotSupportedException("EXTENSÃO DE ARQUIVO NÃO RECONHECIDA!");

@@ -1,5 +1,5 @@
 ﻿
-namespace banco.InterfaceRepository
+namespace banco.InterfacesRepository
 {
     public interface IRepository<T>
     {

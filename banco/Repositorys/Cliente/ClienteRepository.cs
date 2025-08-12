@@ -1,11 +1,11 @@
-﻿using System.Text;
-using banco.InterfacesDatabase;
-using banco.InterfaceRepository;
-using banco.InterfaceClienteRepository;
+﻿using banco.InterfacesDatabase;
+using banco.InterfacesClienteRepository;
+using banco.InterfacesRepository;
 using banco.ModelsCliente;
 using banco.ModelsClienteEndereco;
 using Dapper;
 using banco.DtosCliente;
+using System.Text;
 
 namespace banco.RepositorysCliente
 {
@@ -49,7 +49,7 @@ namespace banco.RepositorysCliente
             return insercao > 0;
         }
 
-        public async Task<bool> InsirirEnderecoCliente(Endereco endereco, string cpfCliente)
+        public async Task<bool> InserirEnderecoDoCliente(Endereco endereco, string cpfCliente)
         {
             using var connection = _dbConnection.GetConnection();
 
@@ -65,14 +65,14 @@ namespace banco.RepositorysCliente
                 cidade = endereco.Cidade.ToUpper().Trim(),
                 estado = endereco.Estado.ToUpper().Trim(),
                 cep = endereco.CEP.Trim(),
-                fk_cliente = await RetornarIdClientePorCpf(cpfCliente)
+                fk_cliente = await RetornarIdDoClientePorCpf(cpfCliente)
             };
 
             var retorno =  await connection.ExecuteAsync(sb.ToString(), paramentes);
             return retorno > 0;
         }
 
-        public async Task<int> RetornarIdClientePorCpf(string clienteCpf)
+        public async Task<int> RetornarIdDoClientePorCpf(string clienteCpf)
         {
             using var connection = _dbConnection.GetConnection();
 

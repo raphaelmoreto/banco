@@ -10,20 +10,18 @@ namespace banco.ModelsCliente
 
         public string CPF { get; set; } = string.Empty;
 
-        public required Endereco Endereco { get; set; }
+        public Endereco? Endereco { get; set; }
 
-        public Cliente()
-        {
-        }
-
-        public Cliente(string nome, string cpf, Endereco endereco, int? id = null)
+        public Cliente(string nome, string cpf, Endereco? endereco = null, int? id = null)
         {
             if (id.HasValue)
                 Id = id.Value;
 
+            if (endereco != null)
+                Endereco = endereco;
+
             Nome = nome;
             CPF = cpf;
-            Endereco = endereco;
         }
     }
 }

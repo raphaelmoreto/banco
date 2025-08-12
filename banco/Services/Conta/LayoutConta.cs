@@ -1,15 +1,15 @@
-﻿using banco.InterfaceLayoutService;
-using banco.InterfaceClienteRepository;
+﻿using banco.InterfacesClienteRepository;
+using banco.InterfacesImportarArquivo;
 using banco.ModelsConta;
-using banco.ModelsEnumsConta;
-using banco.ModelsContaPoupanca;
-using System.Globalization;
 using banco.ModelsContaCorrente;
+using banco.ModelsContaPoupanca;
+using banco.ModelsEnumsConta;
+using System.Globalization;
 using OfficeOpenXml;
 
 namespace banco.ServicesLayoutConta
 {
-    public class LayoutConta : ILayoutService<Conta>
+    public class LayoutConta : IImportarArquivo<Conta>
     {
         private readonly IClienteRepository _clienteRepository;
 
@@ -29,7 +29,7 @@ namespace banco.ServicesLayoutConta
                 if (dados.Length < 4)
                     continue;
 
-                int idCliente = await _clienteRepository.RetornarIdClientePorCpf(dados[0]);
+                int idCliente = await _clienteRepository.RetornarIdDoClientePorCpf(dados[0]);
                 TipoConta tipoConta = Enum.Parse<TipoConta>(dados[1]);
 
                 decimal? saldo = decimal.TryParse(
@@ -80,7 +80,7 @@ namespace banco.ServicesLayoutConta
                 if (dados.Length < 4)
                     continue;
 
-                int idCliente = await _clienteRepository.RetornarIdClientePorCpf(dados[0]);
+                int idCliente = await _clienteRepository.RetornarIdDoClientePorCpf(dados[0]);
                 TipoConta tipoConta = Enum.Parse<TipoConta>(dados[1]);
 
                 decimal? saldo = decimal.TryParse(
@@ -135,7 +135,7 @@ namespace banco.ServicesLayoutConta
 
                 for (int linha = 1; linha <= linhas; linha++)
                 {
-                    int idCliente = await _clienteRepository.RetornarIdClientePorCpf(planilha.Cells[linha, 1].Text);
+                    int idCliente = await _clienteRepository.RetornarIdDoClientePorCpf(planilha.Cells[linha, 1].Text);
                     TipoConta tipoConta = Enum.Parse<TipoConta>(planilha.Cells[linha, 2].Text);
 
                     decimal? saldo = decimal.TryParse(

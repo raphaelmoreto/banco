@@ -1,5 +1,5 @@
 ﻿
-namespace banco.InterfaceExportar
+namespace banco.InterfacesExportar
 {
     public interface IExportar
     {
