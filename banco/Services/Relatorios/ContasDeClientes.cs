@@ -4,6 +4,7 @@ using banco.DtosConta;
 using banco.InterfacesClienteRepository;
 using banco.InterfacesContaRepository;
 using banco.InterfacesExportarArquivo;
+using banco.ModelsEnumsConta;
 
 namespace banco.ServicesRelatoriosContasDeClientes
 {
@@ -35,12 +36,12 @@ namespace banco.ServicesRelatoriosContasDeClientes
             var clientes = await _clienteRepository.BuscarClientes();
             var contas = await _contaRepository.BuscarContas();
 
-            //CRIANDO UM NOVO ARQUIVO MESCLANDO 'clientes' e 'contas'
+            //CRIANDO UMA NOVA LISTA MESCLANDO 'clientes' e 'contas'
             var listaContasDeClientes = (
                 from cl in clientes
                 join ct in contas
                     on cl.Id equals ct.IdCliente
-                select new ContasDeClietesDto( new ClienteDto(cl.Id, cl.Nome, cl.CPF), new ContaDto(cl.Id, ct.TipoConta, ct.Saldo))
+                select new ContasDeClietesDto(new ClienteDto(cl.Nome, cl.CPF), new ContaDto((TipoConta)ct.TipoConta, ct.Saldo))
             ).ToList();
 
             switch (extensao)

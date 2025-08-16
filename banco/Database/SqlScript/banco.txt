@@ -35,8 +35,8 @@ CREATE TABLE tipo_conta (
 GO
 
 INSERT INTO tipo_conta (descricao)
-					  VALUES ('POUPANÇA'),
-								 ('CORRENTE')
+				VALUES ('POUPANÇA'),
+					   ('CORRENTE')
 GO
 
 CREATE TABLE conta (

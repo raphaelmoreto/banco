@@ -17,10 +17,6 @@ namespace banco.ModelsClienteEndereco
 
         public string CEP { get; set; } = string.Empty;
 
-        public Endereco()
-        {
-        }
-
         public Endereco(string rua, string numero, string bairro, string cidade, string estado, string cep, int? id = null)
         {
             if (id.HasValue)

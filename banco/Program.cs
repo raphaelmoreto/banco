@@ -42,7 +42,7 @@ namespace banco
             IExportarArquivo<ContasDeClietesDto> exportarArquivo = new ExportarArquivo();
             ContasDeClientes contasdeClientes = new ContasDeClientes(clienteRepository, contaRepository, exportarArquivo);
 
-            await contasdeClientes.Exportar(".txt");
+            await contasdeClientes.Exportar(".TXT");
         }
     }
 }

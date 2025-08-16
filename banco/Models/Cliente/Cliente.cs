@@ -12,6 +12,10 @@ namespace banco.ModelsCliente
 
         public Endereco? Endereco { get; set; }
 
+        public Cliente()
+        {
+        }
+
         public Cliente(string nome, string cpf, Endereco? endereco = null, int? id = null)
         {
             if (id.HasValue)

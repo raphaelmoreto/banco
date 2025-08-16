@@ -1,9 +1,9 @@
-﻿using banco.DtosConta;
+﻿using banco.ModelsConta;
 
 namespace banco.InterfacesContaRepository
 {
     public interface IContaRepository
     {
-        Task<IEnumerable<ContaDto>> BuscarContas();
+        Task<IEnumerable<dynamic>> BuscarContas();
     }
 }

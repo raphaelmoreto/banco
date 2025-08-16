@@ -17,7 +17,7 @@ namespace banco.RepositorysConta
             _dbConnection = dbConnection;
         }
 
-        public async Task<IEnumerable<ContaDto>> BuscarContas()
+        public async Task<IEnumerable<dynamic>> BuscarContas()
         {
             using var connection = _dbConnection.GetConnection();
 
@@ -27,7 +27,7 @@ namespace banco.RepositorysConta
             sb.AppendLine("           [saldo] AS 'Saldo'");
             sb.AppendLine("FROM [dbo].[conta]");
 
-            return await connection.QueryAsync<ContaDto>(sb.ToString());
+            return await connection.QueryAsync<dynamic>(sb.ToString());
         }
 
         public async Task<bool> Inserir(Conta conta)

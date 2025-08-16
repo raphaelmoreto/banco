@@ -19,15 +19,13 @@ namespace banco.ServicesLayoutCliente
                 if (dados.Length != 8)
                     continue;
 
-                Endereco endereco = new Endereco
-                {
-                    Rua = dados[2].ToUpper().Trim(),
-                    Numero = dados[3].Trim(),
-                    Bairro = dados[4].ToUpper().Trim(),
-                    Cidade = dados[5].ToUpper().Trim(),
-                    Estado = dados[6].ToUpper().Trim(),
-                    CEP = dados[7].Trim()
-                };
+                string rua = dados[2].ToUpper().Trim();
+                string numero = dados[3].Trim();
+                string bairro = dados[4].ToUpper().Trim();
+                string cidade = dados[5].ToUpper().Trim();
+                string estado = dados[6].ToUpper().Trim();
+                string cep = dados[7].Trim();
+                Endereco endereco = new Endereco(rua, numero, bairro, cidade, estado, cep);
 
                 string nome = dados[0].ToUpper().Trim();
                 string cpf = dados[1].Trim();
@@ -49,15 +47,13 @@ namespace banco.ServicesLayoutCliente
                 if (dados.Length != 8)
                     continue;
 
-                Endereco endereco = new Endereco
-                {
-                    Rua = dados[2].ToUpper().Trim(),
-                    Numero = dados[3].Trim(),
-                    Bairro = dados[4].ToUpper().Trim(),
-                    Cidade = dados[5].ToUpper().Trim(),
-                    Estado = dados[6].ToUpper().Trim(),
-                    CEP = dados[7].Trim()
-                };
+                string rua = dados[2].ToUpper().Trim();
+                string numero = dados[3].Trim();
+                string bairro = dados[4].ToUpper().Trim();
+                string cidade = dados[5].ToUpper().Trim();
+                string estado = dados[6].ToUpper().Trim();
+                string cep = dados[7].Trim();
+                Endereco endereco = new Endereco(rua, numero, bairro, cidade, estado, cep);
 
                 string nome = dados[0].ToUpper().Trim();
                 string cpf = dados[1].Trim();
@@ -82,15 +78,13 @@ namespace banco.ServicesLayoutCliente
 
                 for (int linha = 1; linha <= linhas; linha++) //COMEÇAR A LER DA PRIMEIRA LINHA DA PLANILHA
                 {
-                    Endereco endereco = new Endereco
-                    {
-                        Rua = planilha.Cells[linha, 3].Text.ToUpper().Trim(),
-                        Numero = planilha.Cells[linha, 4].Text.Trim(),
-                        Bairro = planilha.Cells[linha, 5].Text.ToUpper().Trim(),
-                        Cidade = planilha.Cells[linha, 6].Text.ToUpper().Trim(),
-                        Estado = planilha.Cells[linha, 7].Text.ToUpper().Trim(),
-                        CEP = planilha.Cells[linha, 8].Text.Trim(),
-                    };
+                    string rua = planilha.Cells[linha, 3].Text.ToUpper().Trim();
+                    string numero = planilha.Cells[linha, 4].Text.Trim();
+                    string bairro = planilha.Cells[linha, 5].Text.ToUpper().Trim();
+                    string cidade = planilha.Cells[linha, 6].Text.ToUpper().Trim();
+                    string estado = planilha.Cells[linha, 7].Text.ToUpper().Trim();
+                    string cep = planilha.Cells[linha, 8].Text.Trim();
+                    Endereco endereco = new Endereco(rua, numero, bairro, cidade, estado, cep);
 
                     string nome = planilha.Cells[linha, 1].Text.ToUpper().Trim();
                     string cpf = planilha.Cells[linha, 2].Text.Trim();
